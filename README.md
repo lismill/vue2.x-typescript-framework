@@ -1,30 +1,5 @@
 # l
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-
-
 ## Config
 
 - [x] 组织项目目录结构
@@ -440,3 +415,25 @@ export const SetConfig = (params: any): Promise<any> => {
 };
 ```
 
+## Project setup
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
+
+### Compiles and minifies for production
+```
+yarn build
+```
+
+### Lints and fixes files
+```
+yarn lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
