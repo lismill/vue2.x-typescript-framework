@@ -17,7 +17,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 @Component({
   components: {},
 })
-export default class Home extends Vue {
+export default class SvgIcon extends Vue {
   // name
   @Prop({ default: "404" }) name?: string;
 

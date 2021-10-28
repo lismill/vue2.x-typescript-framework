@@ -6,7 +6,7 @@
 - [x] 配置 ESLint 校验 和 自动格式化
 - [x] 配置项目相关信息
 - [x] 配置多环境
-- [x] 配置 vue.config.js
+- [x] 配置 vue.config.ts
 - [ ] 配置 SVG
 - [ ] 配置 CSS 样式系统
 - [ ] 配置 Vscode 代码片段
@@ -234,7 +234,7 @@ VUE_APP_ENV = 'production'
 {{ process.env.VUE_APP_ENV }}
 ```
 
-### 1. 配置 vue.config.js
+### 1. 配置 vue.config.ts
 
 ```
 module.exports = {
@@ -425,7 +425,23 @@ cnpm install svg-sprite-loader --save-dev
 
 #### 1.2 添加配置
 
-``` ./vue.config.js ```
+``` ./vue.config.ts ```
+
+```javascript
+chainWebpack: config => {
+  // svg
+  const svgRule = config.module.rule('svg')
+  svgRule.uses.clear()
+  svgRule
+    .use('svg-sprite-loader')
+    .loader('svg-sprite-loader')
+    .options({
+      symbolId: 'icon-[name]'
+    })
+}
+```
+
+
 
 #### 1.3 创建 SVG 资源文件夹
 
