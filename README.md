@@ -419,11 +419,106 @@ export const SetConfig = (params: any): Promise<any> => {
 
 #### 1.1 安装依赖
 
-```javascript
+```shell
 cnpm install svg-sprite-loader --save-dev
 ```
 
+#### 1.2 添加配置
 
+``` ./vue.config.js ```
+
+#### 1.3 创建 SVG 资源文件夹
+
+``` @/assets/svg ```
+
+#### 1.4 创建 SVG 公共组件
+
+``` @/components/s-svg-icon ```
+
+```vue
+<template>
+  <svg
+    :class="svgClass"
+    :style="{
+      color: color,
+      width: size,
+      height: size,
+    }"
+  >
+    <use :xlink:href="iconName" />
+  </svg>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component({
+  components: {},
+})
+export default class Home extends Vue {
+  // name
+  @Prop({ default: "" }) name!: string;
+
+  // 颜色
+  @Prop({ default: "" }) color!: string;
+
+  // 大小
+  @Prop({ default: "16px" }) size!: string;
+
+  /**
+   * 获取名称
+   */
+  get iconName(): string {
+    return `#icon-${this.name}`;
+  }
+
+  /**
+   * 获取class
+   */
+  get svgClass() {
+    return this.name ? `svg-icon icon-${this.name}` : "404";
+  }
+}
+</script>
+<style lang="scss">
+.svg-icon {
+  fill: currentColor;
+  vertical-align: middle;
+}
+</style>
+```
+
+#### 1.5 全局注册组件
+
+``` @/components/index.ts ```
+
+``` typescript
+import Vue from "vue";
+import SvgIcon from "@/components/svg-icon/index.vue";
+
+/**
+ * 引入 @/assets/svg 下的所有 svg 文件
+ */
+const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
+const req = require.context("@/assets/svg", true, /\.svg$/);
+requireAll(req);
+
+// 注册全局组件
+Vue.component("svg-icon", SvgIcon);
+```
+
+``` ./main.ts ```
+
+```typescript
+import "@/components/index";
+```
+
+#### 1.6 使用组件
+
+```vue
+<svg-icon color="#e74e3d" size="30"></svg-icon>
+<svg-icon name="svg-name" color="#e74e3d" size="30"></svg-icon>
+```
 
 
 

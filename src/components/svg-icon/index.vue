@@ -19,10 +19,10 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 })
 export default class Home extends Vue {
   // name
-  @Prop({ default: "" }) name!: string;
+  @Prop({ default: "404" }) name?: string;
 
   // 颜色
-  @Prop({ default: "" }) color!: string;
+  @Prop({ default: "#000000" }) color!: string;
 
   // 大小
   @Prop({ default: "16px" }) size!: string;
@@ -38,7 +38,7 @@ export default class Home extends Vue {
    * 获取class
    */
   get svgClass() {
-    return this.name ? `svg-icon icon-${this.name}` : "404";
+    return `svg-icon icon-${this.name}`;
   }
 }
 </script>

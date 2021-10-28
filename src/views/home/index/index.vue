@@ -11,6 +11,7 @@
       <legend>SVG</legend>
       <div>
         <svg-icon name="斜塔" color="#e74e3d" size="30"></svg-icon>
+        <svg-icon color="#e74e3d" size="30"></svg-icon>
       </div>
     </fieldset>
   </div>
