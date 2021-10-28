@@ -6,6 +6,15 @@
       <div>Hello, {{ name }}</div>
     </fieldset>
 
+    <!-- Router -->
+    <fieldset>
+      <legend>Router</legend>
+      <div>
+        <router-link to="/login">login</router-link> -
+        <router-link to="/about">about</router-link>
+      </div>
+    </fieldset>
+
     <!-- SVG -->
     <fieldset>
       <legend>SVG</legend>

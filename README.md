@@ -12,9 +12,8 @@
 - [ ] 配置基础框架结构
 - [ ] 配置多主题切换
 - [ ] 配置 I18N 国际化
-- [ ] 配置 Router
+- [x] 配置 Router
 - [x] 配置 Axios
-- [ ] 配置 Mock
 - [ ] 配置 Vuex
 - [x] 配置 Vscode 代码片段
 - [ ] 配置更新基础框架
@@ -233,6 +232,16 @@ VUE_APP_ENV = 'production'
 {{ process.env.NODE_ENV }}
 {{ process.env.VUE_APP_ENV }}
 ```
+
+#### 1.4 查看当前使用的环境
+
+``` index.html ```
+
+```html
+<title env="<%= VUE_APP_ENV %>"><%= htmlWebpackPlugin.options.title %></title>
+```
+
+
 
 ### 1. 配置 vue.config.ts
 
@@ -536,6 +545,103 @@ import "@/components/index";
 <svg-icon name="svg-name" color="#e74e3d" size="30"></svg-icon>
 ```
 
+### 1. 配置 Router
+
+#### 1.1 全局引入
+
+``` main.ts ```
+
+```typescript
+import router from "./router";
+
+new Vue({
+  router,
+  store,
+  render: (h) => h(App),
+}).$mount("#app");
+```
+
+#### 1.2 路由配置
+
+``` @/router/index.ts ```
+
+```typescript
+import Vue from "vue";
+import VueRouter, { RouteConfig } from "vue-router";
+
+Vue.use(VueRouter);
+
+// 引入 modules 文件夹下的所有路由
+const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
+const req = require.context("@/router/modules", true, /\.ts$/);
+const modules: any = requireAll(req).map((route: any) => route.default);
+const routes: Array<RouteConfig> = [
+  // 首页
+  {
+    path: "/",
+    name: "Home",
+    meta: {
+      title: "首页",
+      icon: "home",
+      keepAlive: false,
+      hidden: true,
+      permission: 10000,
+    },
+    component: () => import(/* webpackChunkName: "home" */ "@/views/home/index/index.vue"),
+  },
+
+  // 登录
+  {
+    path: "/login",
+    name: "Login",
+    meta: {
+      title: "登录",
+    },
+    component: () => import(/* webpackChunkName: "login" */ "@/views/login/index.vue"),
+  },
+
+  // 其他模块
+  ...modules,
+
+  // 404
+  {
+    path: "/:catchAll(.*)",
+    name: "404",
+    component: () => import(/* webpackChunkName: "404" */ "@/views/404/index.vue"),
+  },
+];
+
+// 配置路由信息
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
+});
+
+// 修改项目标题
+router.beforeEach((to: any, from: any, next: any) => {
+  document.title = `管理后台${to.meta.title ? " - " + to.meta.title : ""}`;
+  next();
+});
+
+export default router;
+```
+
+#### 1.3 其他路由
+
+``` @/router/modules/about.ts ```
+
+```typescript
+export default {
+  path: "/about",
+  name: "About",
+  meta: {
+    title: "关于我们",
+  },
+  component: () => import(/* webpackChunkName: "about" */ "@/views/about/index/index.vue"),
+};
+```
+
 ### 1. 代码片段
 
 #### 1.1 作用
@@ -593,6 +699,25 @@ import "@/components/index";
       "<template>\n\t<div class=\"${1}\">\n\t\t$2\n\t</div>\n</template>\n\n<script lang='ts'>\nimport { defineComponent } from 'vue'\n\nexport default defineComponent({\n\tsetup () {\n\t\tconsole.log('$3')\n\t}\n})\n</script>\n"
     ],
     "description": "vue3.x-typescript-template"
+  },
+  /**
+   * Function
+   */
+  "function": {
+    "scope": "",
+    "prefix": "function",
+    "body": [
+      "${1}(): void {${2}}"
+    ],
+    "description": "function"
+  },
+  "promise": {
+    "scope": "javascript, typescript",
+    "prefix": "promise",
+    "body": [
+      "return new Promise((${2:resolve}, ${3:reject}) => {${1}})"
+    ],
+    "description": "promise"
   },
   /**
    * API
@@ -672,6 +797,17 @@ import "@/components/index";
     ],
     "description": "some"
   },
+  /**
+   * Style
+   */
+  "scss": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "scss",
+    "body": [
+      "<style scoped lang='scss'>${1}</style>"
+    ],
+    "description": "scss"
+  },
 }
 ```
 
@@ -683,6 +819,8 @@ import "@/components/index";
 | cd                         | 控制台输出片段                          | console.dir('')                                              |
 | ct                         | 控制台输出片段                          | console.table('')                                            |
 | vue2.x-typescript-template | 生成一个 vue2.x + typescript 空模板片段 | -                                                            |
+| function                   | 生成函数表达式                          | xxx(): void {}                                               |
+| promise                    | 生成 Promise 对象                       | return new Promise((resolve, reject) => { })                 |
 | api                        | 生成一个使用 api 请求的片段             | .({}).then((res: any) => { console.log(res) }).catch((error: any) => console.log(error)).finally(() => {}) |
 | api-get                    | 生成一个 api get 请求片段               | export const xxx = (params: any): Promise<any> => request.get("xxx", { params }); |
 | api-post                   | 生成一个 api post 请求片段              | export const xxx= (params: any): Promise<any> => request.post("xxx", params); |
@@ -692,6 +830,7 @@ import "@/components/index";
 | filter                     | filter 遍历数组片段                     | .filter((item: any) => {})                                   |
 | every                      | every 遍历数组片段                      | .every((item: any) => {})                                    |
 | some                       | some 遍历数组片段                       | .some((item: any) => {})                                     |
+| scss                       | 生成 style scss 结构                    | <style scoped lang="scss"></style>                           |
 
 ## Project setup
 
