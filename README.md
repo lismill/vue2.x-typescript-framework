@@ -19,7 +19,7 @@
 - [ ] 配置更新基础框架
 - [ ] 自动化部署
 
-### 1. 组织项目目录结构
+## 1. 组织项目目录结构
 
 ```js
 ├── src
@@ -55,7 +55,7 @@
 │  ├── shims-vue.d.ts                                  # 为TS做的适配定义文件
 ```
 
-### 1. 配置 ESLint 校验 和 自动格式化
+## 1. 配置 ESLint 校验 和 自动格式化
 
 ``` .eslintrc.js ```
 
@@ -133,15 +133,15 @@ module.exports = {
 }
 ```
 
-### 1. 配置项目相关信息
+## 1. 配置项目相关信息
 
-#### 1.1 配置favicon.ico
+### 1.1 配置favicon.ico
 
 修改 ``` public\img\icons ``` 和 ``` public\favicon.ico ``` 文件
 
-#### 1.2 配置网页标题
+### 1.2 配置网页标题
 
-##### 1.2.1 直接修改
+#### 1.2.1 直接修改
 
 ``` ./public/index.html ```
 
@@ -149,7 +149,7 @@ module.exports = {
 <title>管理后台</title>
 ```
 
-##### 1.2.2 全局路由拦截修改
+#### 1.2.2 全局路由拦截修改
 
 ``` @/router/index.ts ```
 
@@ -161,9 +161,9 @@ router.beforeEach((to, from, next) => {
 });
 ```
 
-### 1. 配置多环境
+## 1. 配置多环境
 
-#### 1.1 修改 package.json
+### 1.1 修改 package.json
 
 ``` ./package.json ```
 
@@ -171,12 +171,12 @@ router.beforeEach((to, from, next) => {
 "scripts": {
   "start": "yarn serve:dev",
   "serve": "yarn serve:dev",
-  "serve:dev": "vue-cli-service serve --mode development",
+  "serve:dev": "vue-cli-service serve --mode develop",
   "serve:test": "vue-cli-service serve --mode test",
   "serve:uat": "vue-cli-service serve --mode uat",
   "serve:prod": "vue-cli-service serve --mode production",
   "build": "yarn build:dev",
-  "build:dev": "vue-cli-service build --mode development",
+  "build:dev": "vue-cli-service build --mode develop",
   "build:test": "vue-cli-service build --mode test",
   "build:uat": "vue-cli-service build --mode uat",
   "build:prod": "vue-cli-service build --mode production",
@@ -184,9 +184,9 @@ router.beforeEach((to, from, next) => {
 }
 ```
 
-#### 1.2 添加 .env 文件
+### 1.2 添加 .env 文件
 
-``` .env.development ```
+``` .env.develop ```
 
 ```js
 # 开发环境
@@ -226,14 +226,14 @@ VUE_APP_ENV = 'production'
 // others config
 ```
 
-#### 1.3 使用方法
+### 1.3 使用方法
 
 ``` html
 {{ process.env.NODE_ENV }}
 {{ process.env.VUE_APP_ENV }}
 ```
 
-#### 1.4 查看当前使用的环境
+### 1.4 查看当前使用的环境
 
 ``` index.html ```
 
@@ -243,7 +243,7 @@ VUE_APP_ENV = 'production'
 
 
 
-### 1. 配置 vue.config.js
+## 1. 配置 vue.config.js
 
 ```
 module.exports = {
@@ -254,9 +254,9 @@ module.exports = {
 }
 ```
 
-### 1. 配置 Axios
+## 1. 配置 Axios
 
-#### 1.1 配置
+### 1.1 配置
 
 ``` @/utils/axios/index.ts ``` 基础配置
 
@@ -406,7 +406,7 @@ export default {
 };
 ```
 
-#### 1.2 使用方法
+### 1.2 使用方法
 
 ``` @/api/home/index.ts ```
 
@@ -424,15 +424,15 @@ export const SetConfig = (params: any): Promise<any> => {
 };
 ```
 
-### 1. 配置 SVG
+## 1. 配置 SVG
 
-#### 1.1 安装依赖
+### 1.1 安装依赖
 
 ```shell
 cnpm install svg-sprite-loader --save-dev
 ```
 
-#### 1.2 添加配置
+### 1.2 添加配置
 
 ``` ./vue.config.js ```
 
@@ -450,13 +450,11 @@ chainWebpack: config => {
 }
 ```
 
-
-
-#### 1.3 创建 SVG 资源文件夹
+### 1.3 创建 SVG 资源文件夹
 
 ``` @/assets/svg ```
 
-#### 1.4 创建 SVG 公共组件
+### 1.4 创建 SVG 公共组件
 
 ``` @/components/s-svg-icon ```
 
@@ -513,7 +511,7 @@ export default class Home extends Vue {
 </style>
 ```
 
-#### 1.5 全局注册组件
+### 1.5 全局注册组件
 
 ``` @/components/index.ts ```
 
@@ -538,16 +536,16 @@ Vue.component("svg-icon", SvgIcon);
 import "@/components/index";
 ```
 
-#### 1.6 使用组件
+### 1.6 使用组件
 
 ```vue
 <svg-icon color="#e74e3d" size="30"></svg-icon>
 <svg-icon name="svg-name" color="#e74e3d" size="30"></svg-icon>
 ```
 
-### 1. 配置 Router
+## 1. 配置 Router
 
-#### 1.1 全局引入
+### 1.1 全局引入
 
 ``` main.ts ```
 
@@ -561,7 +559,7 @@ new Vue({
 }).$mount("#app");
 ```
 
-#### 1.2 路由配置
+### 1.2 路由配置
 
 ``` @/router/index.ts ```
 
@@ -627,7 +625,7 @@ router.beforeEach((to: any, from: any, next: any) => {
 export default router;
 ```
 
-#### 1.3 其他路由
+### 1.3 其他路由
 
 ``` @/router/modules/about.ts ```
 
@@ -642,13 +640,13 @@ export default {
 };
 ```
 
-### 1. 代码片段
+## 1. 代码片段
 
-#### 1.1 作用
+### 1.1 作用
 
 使用快捷键自动生成代码片段
 
-#### 1.2 配置方法
+### 1.2 配置方法
 
 复制以下配置信息，粘贴到 ``` Vscode 首选项 => 用户片段 => 新建全局代码片段文件```
 
