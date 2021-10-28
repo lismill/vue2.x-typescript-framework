@@ -14,7 +14,7 @@
 - [ ] 配置多主题切换
 - [ ] 配置 I18N 国际化
 - [ ] 配置 Router
-- [ ] 配置 Axios
+- [x] 配置 Axios
 - [ ] 配置 Mock
 - [ ] 配置 Vuex
 - [ ] 配置更新基础框架
@@ -415,7 +415,20 @@ export const SetConfig = (params: any): Promise<any> => {
 };
 ```
 
+### 1. 配置 SVG
+
+#### 1.1 安装依赖
+
+```javascript
+cnpm install svg-sprite-loader --save-dev
+```
+
+
+
+
+
 ## Project setup
+
 ```
 yarn install
 ```
