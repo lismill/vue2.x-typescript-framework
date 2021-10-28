@@ -3,7 +3,7 @@ module.exports = {
   publicPath: "./",
   // 静态资源目录
   assetsDir: "assets",
-  chainWebpack: (config: any) => {
+  chainWebpack: (config) => {
     // svg
     const svgRule = config.module.rule("svg");
     svgRule.uses.clear();
