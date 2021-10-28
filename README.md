@@ -22,7 +22,7 @@
 
 ### 1. 组织项目目录结构
 
-```json
+```js
 ├── src
 │  ├── api                                             # api 请求文件夹
 │  ├── assets                                          # 资源文件夹
@@ -89,7 +89,7 @@ module.exports = {
 
 ``` .vscode/settings.json ```
 
-```json
+```js
 {
   // 每次保存的时候自动格式化
   "editor.formatOnSave": true,
@@ -127,7 +127,7 @@ module.exports = {
 
 ``` .prettierrc.js ```
 
-```json
+```js
 module.exports = {
   // 换行长度，默认80
   printWidth: 120,
@@ -189,7 +189,7 @@ router.beforeEach((to, from, next) => {
 
 ``` .env.development ```
 
-```json
+```js
 # 开发环境
 NODE_ENV = 'development'
 VUE_APP_ENV = 'development'
@@ -199,7 +199,7 @@ VUE_APP_ENV = 'development'
 
 ``` .env.test ```
 
-``` json
+``` js
 # 测试环境
 NODE_ENV = 'production'
 VUE_APP_ENV = 'test'
@@ -209,7 +209,7 @@ VUE_APP_ENV = 'test'
 
 ``` .env.uat ```
 
-``` json
+``` js
 # UAT环境
 NODE_ENV = 'production'
 VUE_APP_ENV = 'uat'
@@ -219,7 +219,7 @@ VUE_APP_ENV = 'uat'
 
 ``` .env.production ```
 
-``` json
+``` js
 # 生产环境
 NODE_ENV = 'production'
 VUE_APP_ENV = 'production'
