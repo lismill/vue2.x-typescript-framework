@@ -23,6 +23,15 @@
         <svg-icon color="#e74e3d" size="30"></svg-icon>
       </div>
     </fieldset>
+
+    <!-- Style -->
+    <fieldset>
+      <legend>Style</legend>
+      <div class="p-20">
+        <div>1</div>
+        <div>2</div>
+      </div>
+    </fieldset>
   </div>
 </template>
 
