@@ -536,7 +536,162 @@ import "@/components/index";
 <svg-icon name="svg-name" color="#e74e3d" size="30"></svg-icon>
 ```
 
+### 1. 代码片段
 
+#### 1.1 作用
+
+使用快捷键自动生成代码片段
+
+#### 1.2 配置方法
+
+复制以下配置信息，粘贴到 ``` Vscode 首选项 => 用户片段 => 新建全局代码片段文件```
+
+```js
+{
+  /**
+   * Console
+   */
+  "console.log": {
+    "scope": "javascript, typescript",
+    "prefix": "cl",
+    "body": [
+      "console.log('$1', $2)"
+    ],
+    "description": "console.log()"
+  },
+  "console.dir": {
+    "scope": "javascript, typescript",
+    "prefix": "cd",
+    "body": [
+      "console.dir('$1', $2)"
+    ],
+    "description": "console.dir()"
+  },
+  "console.table": {
+    "scope": "javascript, typescript",
+    "prefix": "ct",
+    "body": [
+      "console.table('$1', $2)"
+    ],
+    "description": "console.table()"
+  },
+  /**
+   * Template
+   */
+  "vue2.x typescript template": {
+    "scope": "",
+    "prefix": "vue2.x-typescript-template",
+    "body": [
+      "<template>\n\t<div class='${1}'></div>\n</template>\n\n<script lang='ts'>\nimport { Component, Vue } from 'vue-property-decorator';\n\n@Component({\n\tcomponents: {},\n})\nexport default class ${2} extends Vue {\n\tmounted(): void {}\n}\n</script>\n<style scoped lang='scss'>\n</style>\n"
+    ],
+    "description": "vue2.x-typescript-template"
+  },
+  "vue3.x typescript template": {
+    "scope": "",
+    "prefix": "vue3.x-typescript-template",
+    "body": [
+      "<template>\n\t<div class=\"${1}\">\n\t\t$2\n\t</div>\n</template>\n\n<script lang='ts'>\nimport { defineComponent } from 'vue'\n\nexport default defineComponent({\n\tsetup () {\n\t\tconsole.log('$3')\n\t}\n})\n</script>\n"
+    ],
+    "description": "vue3.x-typescript-template"
+  },
+  /**
+   * API
+   */
+  "api": {
+    "scope": "javascript, typescript",
+    "prefix": "api",
+    "body": [
+      "${1}({$2}).then((res: any) => {\n\tconsole.log(res)\n}).catch((error: any) => console.log(error)).finally(() => {$3})"
+    ],
+    "description": "api"
+  },
+  "api-get": {
+    "scope": "javascript, typescript",
+    "prefix": "api-get",
+    "body": [
+      "export const ${1} = (params: any): Promise<any> => {\n\treturn request.get('${2}', { params });\n};"
+    ],
+    "description": "api-get"
+  },
+  "api-post": {
+    "scope": "javascript, typescript",
+    "prefix": "api-post",
+    "body": [
+      "export const ${1} = (params: any): Promise<any> => {\n\treturn request.post('${2}', params);\n};"
+    ],
+    "description": "api-post"
+  },
+  /**
+   * Array
+   */
+  "map": {
+    "scope": "javascript, typescript",
+    "prefix": "map",
+    "body": [
+      "${1}.map((item: ${2:any}) => {$3})"
+    ],
+    "description": "map"
+  },
+  "foreach": {
+    "scope": "javascript, typescript",
+    "prefix": "foreach",
+    "body": [
+      "${1}.forEach((item: ${2:any}) => {${3}})",
+    ],
+    "description": "foreach"
+  },
+  "find": {
+    "scope": "javascript, typescript",
+    "prefix": "find",
+    "body": [
+      "${1}.find((item: ${2:any}) => {$3})"
+    ],
+    "description": "find"
+  },
+  "filter": {
+    "scope": "javascript, typescript",
+    "prefix": "filter",
+    "body": [
+      "${1}.filter((item: ${2:any}) => {$3})"
+    ],
+    "description": "filter"
+  },
+  "every": {
+    "scope": "javascript, typescript",
+    "prefix": "every",
+    "body": [
+      "${1}.every((item: ${2:any}) => {$3})"
+    ],
+    "description": "every"
+  },
+  "some": {
+    "scope": "javascript, typescript",
+    "prefix": "some",
+    "body": [
+      "${1}.some((item: ${2:any}) => {$3})"
+    ],
+    "description": "some"
+  },
+}
+```
+
+### 1.3 快捷键说明
+
+| 快捷键                     | 描述                                    | 生成代码                                                     |
+| -------------------------- | --------------------------------------- | ------------------------------------------------------------ |
+| cl                         | 控制台输出片段                          | console.log('')                                              |
+| cd                         | 控制台输出片段                          | console.dir('')                                              |
+| ct                         | 控制台输出片段                          | console.table('')                                            |
+| vue2.x-typescript-template | 生成一个 vue2.x + typescript 空模板片段 | -                                                            |
+| api                        | 生成一个使用 api 请求的片段             | .({}).then((res: any) => { console.log(res) }).catch((error: any) => console.log(error)).finally(() => {}) |
+| api-get                    | 生成一个 api get 请求片段               | export const xxx = (params: any): Promise<any> => request.get("xxx", { params }); |
+| api-post                   | 生成一个 api post 请求片段              | export const xxx= (params: any): Promise<any> => request.post("xxx", params); |
+| map                        | map 遍历数组片段                        | .map((item: any) => {})                                      |
+| foreach                    | foreach遍历数组片段                     | .forEach((item: any) => {})                                  |
+| find                       | find 遍历数组片段                       | .find((item: any) => {})                                     |
+| filter                     | filter 遍历数组片段                     | .filter((item: any) => {})                                   |
+| every                      | every 遍历数组片段                      | .every((item: any) => {})                                    |
+| some                       | some 遍历数组片段                       | .some((item: any) => {})                                     |
 
 ## Project setup
 
