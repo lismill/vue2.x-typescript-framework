@@ -1,13 +1,13 @@
 <template>
-  <div class="home">
+  <div class="home p-20">
     <!-- Hello -->
-    <fieldset>
-      <legend>Hello</legend>
+    <fieldset class="m-b20">
+      <legend>微信公众号/小程序授权</legend>
       <div>Hello, {{ name }}</div>
     </fieldset>
 
     <!-- Router -->
-    <fieldset>
+    <fieldset class="m-b20">
       <legend>Router</legend>
       <div>
         <router-link to="/login">login</router-link> -
@@ -16,7 +16,7 @@
     </fieldset>
 
     <!-- SVG -->
-    <fieldset>
+    <fieldset class="m-b20">
       <legend>SVG</legend>
       <div>
         <svg-icon name="斜塔" color="#e74e3d" size="30"></svg-icon>
@@ -25,13 +25,15 @@
     </fieldset>
 
     <!-- Style -->
-    <fieldset>
+    <fieldset class="m-b20">
       <legend>Style</legend>
       <div class="p-20">
         <div>1</div>
         <div>2</div>
       </div>
     </fieldset>
+    <img style="border-radius: 50%" src="http://student.ouchn.cn/assets/images/placeholder/course.jpg" alt="" />
+    <p>text</p>
   </div>
 </template>
 
@@ -61,8 +63,3 @@ export default class Home extends Vue {
   }
 }
 </script>
-<style scoped lang="scss">
-fieldset {
-  margin-top: 20px;
-}
-</style>

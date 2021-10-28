@@ -1,7 +1,76 @@
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+/**
+ * reset
+ */
+* {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f8f8f8;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #333333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+a {
+  cursor: pointer; 
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+}
+.svg-icon:focus {
+  outline: none;
+}
+ul, li { 
+  list-style-type: none;
+}
+input {
+  outline: none;
+  -webkit-apperance: none;
+}
+
+/**
+ * 浮动 && 清楚浮动
+ */
+$float: left, right, none, inherit;
+@each $i in $float {
+  .float-#{$i} {
+    float: $i;
+  }
+}
+.clearfix {
+  &:before,
+  &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/**
+ * 对齐方式
+ */
+$display: none, block, inline, inline-block, list-item, table, inline-table;
+@each $i in $display {
+  .display-#{$i} {
+    display: $i;
+  }
+}
+
+/**
+ * 对齐方式
+ */
+$align: left, right, center, justify, inherit;
+@each $i in $align {
+  .text-#{$i} {
+    text-align: $i;
+  }
 }
 
 /**
@@ -49,7 +118,7 @@ $flex-y: "center", "flex-start", "flex-end", "space-evenly", "baseline";
  * Cursor
  * 定义了鼠标手势
  */
-$cursor: pointer;
+$cursor: default, auto, crosshair, pointer, move, e-resize, ne-resize, nw-resize, n-resize, se-resize, sw-resize, s-resize, w-resize, text, wait, help;
 @each $i in $cursor {
   .cursor-#{$i} { cursor: $i; }
 }
@@ -64,6 +133,23 @@ $cursor: pointer;
 );
 @each $font in $fonts{
   .font-#{$font}{ font-size: $font + px; }
+}
+
+/**
+ * 情境颜色
+ */
+$colors: (
+  "primary": #337ab7,
+  "success": #dff0d8,
+  "info": #d9edf7,
+  "warning": #fcf8e3,
+  "danger": #f2dede,
+  "ffffff": #ffffff,
+  "000000": #000000,
+);
+@each $colorKey, $color in $colors{
+  .color-#{$colorKey}{ color: $color; }
+  .bg-#{$colorKey} { background-color: $color; }
 }
 
 /**
