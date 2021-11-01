@@ -7,13 +7,13 @@
 - [x] 配置项目相关信息
 - [x] 配置多环境
 - [x] 配置 vue.config.js
-- [x] 配置 SVG
 - [x] 配置 CSS 样式系统
-- [ ] 配置基础框架结构
-- [ ] 配置多主题切换
+- [x] 配置 SVG
 - [ ] 配置 I18N 国际化
-- [x] 配置 Router
+- [ ] 配置多主题切换
+- [ ] 配置基础框架结构
 - [x] 配置 Axios
+- [x] 配置 Router
 - [x] 配置 Vuex
 - [x] 配置 Vscode 代码片段
 - [ ] 配置更新基础框架
@@ -55,7 +55,7 @@
 │  ├── shims-vue.d.ts                                  # 为TS做的适配定义文件
 ```
 
-## 1. 配置 ESLint 校验 和 自动格式化
+## 2. 配置 ESLint 校验 和 自动格式化
 
 ``` .eslintrc.js ```
 
@@ -133,15 +133,15 @@ module.exports = {
 }
 ```
 
-## 1. 配置项目相关信息
+## 3. 配置项目相关信息
 
-### 1.1 配置favicon.ico
+### 3.1 配置favicon.ico
 
 修改 ``` public\img\icons ``` 和 ``` public\favicon.ico ``` 文件
 
-### 1.2 配置网页标题
+### 3.2 配置网页标题
 
-#### 1.2.1 直接修改
+#### 3.2.1 直接修改
 
 ``` ./public/index.html ```
 
@@ -149,7 +149,7 @@ module.exports = {
 <title>管理后台</title>
 ```
 
-#### 1.2.2 全局路由拦截修改
+#### 3.2.2 全局路由拦截修改
 
 ``` @/router/index.ts ```
 
@@ -161,9 +161,9 @@ router.beforeEach((to, from, next) => {
 });
 ```
 
-## 1. 配置多环境
+## 4. 配置多环境
 
-### 1.1 修改 package.json
+### 4.1 修改 package.json
 
 ``` ./package.json ```
 
@@ -184,7 +184,7 @@ router.beforeEach((to, from, next) => {
 }
 ```
 
-### 1.2 添加 .env 文件
+### 4.2 添加 .env 文件
 
 ``` .env.develop ```
 
@@ -226,14 +226,14 @@ VUE_APP_ENV = 'production'
 // others config
 ```
 
-### 1.3 使用方法
+### 4.3 使用方法
 
 ``` html
 {{ process.env.NODE_ENV }}
 {{ process.env.VUE_APP_ENV }}
 ```
 
-### 1.4 查看当前使用的环境
+### 4.4 查看当前使用的环境
 
 ``` index.html ```
 
@@ -241,9 +241,7 @@ VUE_APP_ENV = 'production'
 <title env="<%= VUE_APP_ENV %>"><%= htmlWebpackPlugin.options.title %></title>
 ```
 
-
-
-## 1. 配置 vue.config.js
+## 5. 配置 vue.config.js
 
 ```
 module.exports = {
@@ -254,9 +252,248 @@ module.exports = {
 }
 ```
 
-## 1. 配置 Axios
+## 6. 配置 CSS 样式系统
 
-### 1.1 配置
+## 6.1 全局样式文件
+
+``` ./main.ts ```
+
+```
+import "@/assets/styles/index.scss";
+```
+
+## 6.2 配置 scss 预置数据
+
+``` vue.config.js ```
+
+```js
+css: {
+  loaderOptions: {
+    sass: {
+      prependData: `@import "@/assets/styles/common/index.scss";`,
+    },
+  },
+},
+```
+
+### 6.3 scss 常用样式
+
+```scss
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/**
+ * 边距
+ * 定义了一些常用的内边距和外边距
+ */
+$gauge: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20,
+        5, 10, 15, 20, 25, 30, 35, 40, 45, 50,
+        60, 70, 80, 90, 100;
+
+@each $i in $gauge {
+  .m-#{$i} { margin: $i+px; }
+  .m-t#{$i} { margin-top: $i+px; }
+  .m-b#{$i} { margin-bottom: $i+px; }
+  .m-l#{$i} { margin-left: $i+px; }
+  .m-r#{$i} { margin-right: $i+px; }
+  .m-lr#{$i} { margin-left: $i+px; margin-right: $i+px; }
+  .m-tb#{$i} { margin-top: $i+px; margin-bottom: $i+px; }
+
+  .p-#{$i} { padding: $i+px; }
+  .p-t#{$i} { padding-top: $i+px; }
+  .p-b#{$i} { padding-bottom: $i+px; }
+  .p-l#{$i} { padding-left: $i+px; }
+  .p-r#{$i} { padding-right: $i+px; }
+  .p-lr#{$i} { padding-left: $i+px; padding-right: $i+px; }
+  .p-tb#{$i} { padding-top: $i+px; padding-bottom: $i+px; }
+}
+
+/**
+ * Flex 布局
+ * 定义了flex布局常用的几种方式
+ */
+.flex { display: flex; flex-wrap: wrap; }
+.flex-center { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
+$flex-x: "center", "space-between", "space-around", "space-evenly";
+$flex-y: "center", "flex-start", "flex-end", "space-evenly", "baseline";
+@each $i in $flex-x {
+  .flex-x-#{$i} { display: flex; flex-wrap: wrap; justify-content: #{$i}; }
+}
+@each $i in $flex-y {
+  .flex-y-#{$i} { display: flex; flex-wrap: wrap; align-items: #{$i}; }
+}
+
+/**
+ * Cursor
+ * 定义了鼠标手势
+ */
+$cursor: pointer;
+@each $i in $cursor {
+  .cursor-#{$i} { cursor: $i; }
+}
+
+/**
+ * Font size
+ * 定义了一些常用的字体大小
+ */
+ $fonts: (
+  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  22, 24, 26, 28, 30, 32, 34, 36, 38, 40
+);
+@each $font in $fonts{
+  .font-#{$font}{ font-size: $font + px; }
+}
+
+/**
+ * 超出指定行数省略号
+ */
+@mixin line-clamp($number) {
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: $number;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+```
+
+### 6.4 使用示例
+
+```
+<div class="flex-center"><div>1</div><div>2</div></div>
+<div class="m-10">margin: 10px;</div>
+<div class="p-10">padding: 10px;</div>
+<div class=".cursor-pointer">cursor: pointer;</div>
+```
+
+## 7. 配置 SVG
+
+### 7.1 安装依赖
+
+```shell
+yarn add svg-sprite-loader --save-dev
+```
+
+### 7.2 添加配置
+
+``` ./vue.config.js ```
+
+```javascript
+chainWebpack: config => {
+  // svg
+  const svgRule = config.module.rule('svg')
+  svgRule.uses.clear()
+  svgRule
+    .use('svg-sprite-loader')
+    .loader('svg-sprite-loader')
+    .options({
+      symbolId: 'icon-[name]'
+    })
+}
+```
+
+### 7.3 创建 SVG 资源文件夹
+
+``` @/assets/svg ```
+
+### 7.4 创建 SVG 公共组件
+
+``` @/components/s-svg-icon ```
+
+```vue
+<template>
+  <svg
+    :class="svgClass"
+    :style="{
+      color: color,
+      width: size,
+      height: size,
+    }"
+  >
+    <use :xlink:href="iconName" />
+  </svg>
+</template>
+
+<script lang="ts">
+import { Component, Vue, Prop } from "vue-property-decorator";
+
+@Component({
+  components: {},
+})
+export default class Home extends Vue {
+  // name
+  @Prop({ default: "" }) name!: string;
+
+  // 颜色
+  @Prop({ default: "" }) color!: string;
+
+  // 大小
+  @Prop({ default: "16px" }) size!: string;
+
+  /**
+   * 获取名称
+   */
+  get iconName(): string {
+    return `#icon-${this.name}`;
+  }
+
+  /**
+   * 获取class
+   */
+  get svgClass() {
+    return this.name ? `svg-icon icon-${this.name}` : "404";
+  }
+}
+</script>
+<style lang="scss">
+.svg-icon {
+  fill: currentColor;
+  vertical-align: middle;
+}
+</style>
+```
+
+### 7.5 全局注册组件
+
+``` @/components/index.ts ```
+
+``` typescript
+import Vue from "vue";
+import SvgIcon from "@/components/svg-icon/index.vue";
+
+/**
+ * 引入 @/assets/svg 下的所有 svg 文件
+ */
+const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
+const req = require.context("@/assets/svg", true, /\.svg$/);
+requireAll(req);
+
+// 注册全局组件
+Vue.component("svg-icon", SvgIcon);
+```
+
+``` ./main.ts ```
+
+```typescript
+import "@/components/index";
+```
+
+### 7.6 使用组件
+
+```vue
+<svg-icon color="#e74e3d" size="30"></svg-icon>
+<svg-icon name="svg-name" color="#e74e3d" size="30"></svg-icon>
+```
+
+## 8. 配置 I18N 国际化
+## 9. 配置多主题切换
+## 10. 配置基础框架结构
+
+## 11. 配置 Axios
+
+### 11.1 配置
 
 ``` @/utils/axios/index.ts ``` 基础配置
 
@@ -406,7 +643,7 @@ export default {
 };
 ```
 
-### 1.2 使用方法
+### 11.2 使用方法
 
 ``` @/api/home/index.ts ```
 
@@ -424,15 +661,112 @@ export const SetConfig = (params: any): Promise<any> => {
 };
 ```
 
-## 1. 配置 Vuex
+## 12. 配置 Router
 
-### 1.1 安装依赖
+### 12.1 全局引入
+
+``` main.ts ```
+
+```typescript
+import router from "./router";
+
+new Vue({
+  router,
+  store,
+  render: (h) => h(App),
+}).$mount("#app");
+```
+
+### 12.2 路由配置
+
+``` @/router/index.ts ```
+
+```typescript
+import Vue from "vue";
+import VueRouter, { RouteConfig } from "vue-router";
+
+Vue.use(VueRouter);
+
+// 引入 modules 文件夹下的所有路由
+const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
+const req = require.context("@/router/modules", true, /\.ts$/);
+const modules: any = requireAll(req).map((route: any) => route.default);
+const routes: Array<RouteConfig> = [
+  // 首页
+  {
+    path: "/",
+    name: "Home",
+    meta: {
+      title: "首页",
+      icon: "home",
+      keepAlive: false,
+      hidden: true,
+      permission: 10000,
+    },
+    component: () => import(/* webpackChunkName: "home" */ "@/views/home/index/index.vue"),
+  },
+
+  // 登录
+  {
+    path: "/login",
+    name: "Login",
+    meta: {
+      title: "登录",
+    },
+    component: () => import(/* webpackChunkName: "login" */ "@/views/login/index.vue"),
+  },
+
+  // 其他模块
+  ...modules,
+
+  // 404
+  {
+    path: "/:catchAll(.*)",
+    name: "404",
+    component: () => import(/* webpackChunkName: "404" */ "@/views/404/index.vue"),
+  },
+];
+
+// 配置路由信息
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
+  routes,
+});
+
+// 修改项目标题
+router.beforeEach((to: any, from: any, next: any) => {
+  document.title = `管理后台${to.meta.title ? " - " + to.meta.title : ""}`;
+  next();
+});
+
+export default router;
+```
+
+### 12.3 其他路由
+
+``` @/router/modules/about.ts ```
+
+```typescript
+export default {
+  path: "/about",
+  name: "About",
+  meta: {
+    title: "关于我们",
+  },
+  component: () => import(/* webpackChunkName: "about" */ "@/views/about/index/index.vue"),
+};
+```
+
+## 13. 配置 Vuex
+
+### 13.1 安装依赖
 
 ```shell
 yarn add vuex --save
 ```
 
-### 1.2 全局引入
+### 13.2 全局引入
 
 ``` .main.ts```
 
@@ -444,7 +778,7 @@ new Vue({
 }).$mount("#app");
 ```
 
-### 1.3 创建 store
+### 13.3 创建 store
 
 ``` @/store/index.ts ```
 
@@ -517,7 +851,7 @@ export default {
 };
 ```
 
-### 1.4 使用方法
+### 13.4 使用方法
 
 ```typescript
 // 获取方法
@@ -530,345 +864,13 @@ this.$store.commit("common/CHANGE_STATE", { key: "key", value: data });
 this.$store.commit("common/CHANGE_STATE", [ { key: "key", value: data } ]);
 ```
 
-## 1. 配置 SVG
+## 14. 代码片段
 
-### 1.1 安装依赖
-
-```shell
-yarn add svg-sprite-loader --save-dev
-```
-
-### 1.2 添加配置
-
-``` ./vue.config.js ```
-
-```javascript
-chainWebpack: config => {
-  // svg
-  const svgRule = config.module.rule('svg')
-  svgRule.uses.clear()
-  svgRule
-    .use('svg-sprite-loader')
-    .loader('svg-sprite-loader')
-    .options({
-      symbolId: 'icon-[name]'
-    })
-}
-```
-
-### 1.3 创建 SVG 资源文件夹
-
-``` @/assets/svg ```
-
-### 1.4 创建 SVG 公共组件
-
-``` @/components/s-svg-icon ```
-
-```vue
-<template>
-  <svg
-    :class="svgClass"
-    :style="{
-      color: color,
-      width: size,
-      height: size,
-    }"
-  >
-    <use :xlink:href="iconName" />
-  </svg>
-</template>
-
-<script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
-
-@Component({
-  components: {},
-})
-export default class Home extends Vue {
-  // name
-  @Prop({ default: "" }) name!: string;
-
-  // 颜色
-  @Prop({ default: "" }) color!: string;
-
-  // 大小
-  @Prop({ default: "16px" }) size!: string;
-
-  /**
-   * 获取名称
-   */
-  get iconName(): string {
-    return `#icon-${this.name}`;
-  }
-
-  /**
-   * 获取class
-   */
-  get svgClass() {
-    return this.name ? `svg-icon icon-${this.name}` : "404";
-  }
-}
-</script>
-<style lang="scss">
-.svg-icon {
-  fill: currentColor;
-  vertical-align: middle;
-}
-</style>
-```
-
-### 1.5 全局注册组件
-
-``` @/components/index.ts ```
-
-``` typescript
-import Vue from "vue";
-import SvgIcon from "@/components/svg-icon/index.vue";
-
-/**
- * 引入 @/assets/svg 下的所有 svg 文件
- */
-const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
-const req = require.context("@/assets/svg", true, /\.svg$/);
-requireAll(req);
-
-// 注册全局组件
-Vue.component("svg-icon", SvgIcon);
-```
-
-``` ./main.ts ```
-
-```typescript
-import "@/components/index";
-```
-
-### 1.6 使用组件
-
-```vue
-<svg-icon color="#e74e3d" size="30"></svg-icon>
-<svg-icon name="svg-name" color="#e74e3d" size="30"></svg-icon>
-```
-
-## 1. 配置 CSS 样式系统
-
-## 1.1 全局样式文件
-
-``` ./main.ts ```
-
-```
-import "@/assets/styles/index.scss";
-```
-
-## 1.2 配置 scss 预置数据
-
-``` vue.config.js ```
-
-```js
-css: {
-  loaderOptions: {
-    sass: {
-      prependData: `@import "@/assets/styles/common/index.scss";`,
-    },
-  },
-},
-```
-
-### 1.3 scss 常用样式
-
-```scss
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-/**
- * 边距
- * 定义了一些常用的内边距和外边距
- */
-$gauge: 2, 4, 6, 8, 10, 12, 14, 16, 18, 20,
-        5, 10, 15, 20, 25, 30, 35, 40, 45, 50,
-        60, 70, 80, 90, 100;
-
-@each $i in $gauge {
-  .m-#{$i} { margin: $i+px; }
-  .m-t#{$i} { margin-top: $i+px; }
-  .m-b#{$i} { margin-bottom: $i+px; }
-  .m-l#{$i} { margin-left: $i+px; }
-  .m-r#{$i} { margin-right: $i+px; }
-  .m-lr#{$i} { margin-left: $i+px; margin-right: $i+px; }
-  .m-tb#{$i} { margin-top: $i+px; margin-bottom: $i+px; }
-
-  .p-#{$i} { padding: $i+px; }
-  .p-t#{$i} { padding-top: $i+px; }
-  .p-b#{$i} { padding-bottom: $i+px; }
-  .p-l#{$i} { padding-left: $i+px; }
-  .p-r#{$i} { padding-right: $i+px; }
-  .p-lr#{$i} { padding-left: $i+px; padding-right: $i+px; }
-  .p-tb#{$i} { padding-top: $i+px; padding-bottom: $i+px; }
-}
-
-/**
- * Flex 布局
- * 定义了flex布局常用的几种方式
- */
-.flex { display: flex; flex-wrap: wrap; }
-.flex-center { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; }
-$flex-x: "center", "space-between", "space-around", "space-evenly";
-$flex-y: "center", "flex-start", "flex-end", "space-evenly", "baseline";
-@each $i in $flex-x {
-  .flex-x-#{$i} { display: flex; flex-wrap: wrap; justify-content: #{$i}; }
-}
-@each $i in $flex-y {
-  .flex-y-#{$i} { display: flex; flex-wrap: wrap; align-items: #{$i}; }
-}
-
-/**
- * Cursor
- * 定义了鼠标手势
- */
-$cursor: pointer;
-@each $i in $cursor {
-  .cursor-#{$i} { cursor: $i; }
-}
-
-/**
- * Font size
- * 定义了一些常用的字体大小
- */
- $fonts: (
-  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  22, 24, 26, 28, 30, 32, 34, 36, 38, 40
-);
-@each $font in $fonts{
-  .font-#{$font}{ font-size: $font + px; }
-}
-
-/**
- * 超出指定行数省略号
- */
-@mixin line-clamp($number) {
-  word-break: break-all;
-  display: -webkit-box;
-  -webkit-line-clamp: $number;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-```
-
-### 1.4 使用示例
-
-```
-<div class="flex-center"><div>1</div><div>2</div></div>
-<div class="m-10">margin: 10px;</div>
-<div class="p-10">padding: 10px;</div>
-<div class=".cursor-pointer">cursor: pointer;</div>
-```
-
-## 1. 配置 Router
-
-### 1.1 全局引入
-
-``` main.ts ```
-
-```typescript
-import router from "./router";
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
-```
-
-### 1.2 路由配置
-
-``` @/router/index.ts ```
-
-```typescript
-import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
-
-Vue.use(VueRouter);
-
-// 引入 modules 文件夹下的所有路由
-const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
-const req = require.context("@/router/modules", true, /\.ts$/);
-const modules: any = requireAll(req).map((route: any) => route.default);
-const routes: Array<RouteConfig> = [
-  // 首页
-  {
-    path: "/",
-    name: "Home",
-    meta: {
-      title: "首页",
-      icon: "home",
-      keepAlive: false,
-      hidden: true,
-      permission: 10000,
-    },
-    component: () => import(/* webpackChunkName: "home" */ "@/views/home/index/index.vue"),
-  },
-
-  // 登录
-  {
-    path: "/login",
-    name: "Login",
-    meta: {
-      title: "登录",
-    },
-    component: () => import(/* webpackChunkName: "login" */ "@/views/login/index.vue"),
-  },
-
-  // 其他模块
-  ...modules,
-
-  // 404
-  {
-    path: "/:catchAll(.*)",
-    name: "404",
-    component: () => import(/* webpackChunkName: "404" */ "@/views/404/index.vue"),
-  },
-];
-
-// 配置路由信息
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes,
-});
-
-// 修改项目标题
-router.beforeEach((to: any, from: any, next: any) => {
-  document.title = `管理后台${to.meta.title ? " - " + to.meta.title : ""}`;
-  next();
-});
-
-export default router;
-```
-
-### 1.3 其他路由
-
-``` @/router/modules/about.ts ```
-
-```typescript
-export default {
-  path: "/about",
-  name: "About",
-  meta: {
-    title: "关于我们",
-  },
-  component: () => import(/* webpackChunkName: "about" */ "@/views/about/index/index.vue"),
-};
-```
-
-## 1. 代码片段
-
-### 1.1 作用
+### 14.1 作用
 
 使用快捷键自动生成代码片段
 
-### 1.2 配置方法
+### 14.2 配置方法
 
 复制以下配置信息，粘贴到 ``` Vscode 首选项 => 用户片段 => 新建全局代码片段文件```
 
@@ -1028,10 +1030,53 @@ export default {
     ],
     "description": "scss"
   },
+  /**
+   * Vue
+   */
+  "router-get": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vue-router-get",
+    "body": [
+      "this.${1:$}route.${2}"
+    ],
+    "description": "vue-router-get"
+  },
+  "router-params": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vue-router-get-params",
+    "body": [
+      "this.${1:$}route.params.${2:id}"
+    ],
+    "description": "vue-router-get-params"
+  },
+  "router-push": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vue-router-push",
+    "body": [
+      "this.${1:$}router.push({ path: '${2}' });"
+    ],
+    "description": "vue-router-push"
+  },
+  "store-get": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vuex-store-get",
+    "body": [
+      "this.${1:$}store.state.${2}"
+    ],
+    "description": "vuex-store-get"
+  },
+  "store-set": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vuex-store-set",
+    "body": [
+      "this.${1:$}store.dispatch('${2}/changeState', [{ key: '${3}', value: '${4}' }]);"
+    ],
+    "description": "vuex-store-set"
+  },
 }
 ```
 
-### 1.3 快捷键说明
+### 14.3 快捷键说明
 
 | 快捷键                     | 描述                                    | 生成代码                                                     |
 | -------------------------- | --------------------------------------- | ------------------------------------------------------------ |
@@ -1051,6 +1096,44 @@ export default {
 | every                      | every 遍历数组片段                      | .every((item: any) => {})                                    |
 | some                       | some 遍历数组片段                       | .some((item: any) => {})                                     |
 | scss                       | 生成 style scss 结构                    | <style scoped lang="scss"></style>                           |
+| router-get                 | 生成一个获取 route 的片段               | this.$route.path                                             |
+| router-params              | 生成一个获取 route params 的片段        | this.$route.params.id                                        |
+| router-push                | 添加一个新的路由记录                    | this.$router.push({ path: "/" });                            |
+| store-get                  | 生成一个获取 store 的片段               | this.$store.state.xxx                                        |
+| store-set                  | 生成一个设置 store 的片段               | this.$store.dispatch("xxx/changeState", [{ key: "xxx", value: "xxx" }]); |
+
+## 15. 配置更新基础框架
+
+### 15.1 查看项目中已有远程仓库
+
+```shell
+git remote
+```
+
+### 15.2 添加远程基础框架仓库
+
+```shell
+git remote add framework git-url
+```
+
+### 15.3 查看基础框架信息
+
+```shell
+git fetch framework
+```
+
+### 15.4 获取或者初始化基础框架
+
+```shell
+# 获取v1.0.0分支的代码
+git merge framework/v1.0.0 --allow-unrelated-historie
+```
+
+### 15.5 解决冲突
+
+更新基础框架，如有冲突先解决冲突，然后提交并推送代码，项目中的基础框架更新完成
+
+## 16. 自动化部署
 
 ## Project setup
 
