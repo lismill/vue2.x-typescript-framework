@@ -1,8 +1,8 @@
 import Vue from "vue";
-import App from "./app.vue";
-import "./registerServiceWorker";
-import router from "./router";
-import store from "./store";
+import App from "@/app.vue";
+import "@/registerServiceWorker";
+import router from "@/router";
+import store from "@/store";
 import "@/components/index";
 import "@/assets/styles/index.scss";
 

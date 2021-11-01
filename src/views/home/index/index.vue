@@ -32,8 +32,14 @@
         <div>2</div>
       </div>
     </fieldset>
-    <img style="border-radius: 50%" src="http://student.ouchn.cn/assets/images/placeholder/course.jpg" alt="" />
-    <p>text</p>
+    <!-- Vuex -->
+    <fieldset class="m-b20">
+      <legend>Vuex</legend>
+      <div class="p-20">
+        <div @click="changeVersion">改变版本信息</div>
+        <div @click="changeUser">改变用户信息</div>
+      </div>
+    </fieldset>
   </div>
 </template>
 
@@ -52,7 +58,11 @@ export default class Home extends Vue {
     console.log(process.env);
     GetConfig({ id: 1 })
       .then((res: any) => {
-        console.log(res);
+        this.$store.dispatch("user/changeState", [
+          { key: "list", value: res.rows },
+          { key: "name", value: "leelean" },
+        ]);
+        console.log("this.$store.state.user", this.$store.state.user);
       })
       .catch((error: any) => console.log(error));
     SetConfig({ id: 1 })
@@ -60,6 +70,14 @@ export default class Home extends Vue {
         console.log(res);
       })
       .catch((error: any) => console.log(error));
+  }
+
+  changeVersion(): void {
+    this.$store.commit("common/CHANGE_STATE", [{ key: "version", value: "1.1.1" }]);
+    console.log("this.$store.state.common:::", this.$store.state.common);
+  }
+  changeUser(): void {
+    console.log("this.$store.state.user:::", this.$store.state.user);
   }
 }
 </script>

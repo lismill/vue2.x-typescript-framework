@@ -7,5 +7,5 @@ export const GetConfig = (params: any): Promise<any> => {
 
 // 设置首页配置
 export const SetConfig = (params: any): Promise<any> => {
-  return request.post("/home/config", params);
+  return request.post("http://yapi.syy.dongchali.cn/mock/469/platform/integralActivity/list", params);
 };

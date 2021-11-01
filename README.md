@@ -14,7 +14,7 @@
 - [ ] 配置 I18N 国际化
 - [x] 配置 Router
 - [x] 配置 Axios
-- [ ] 配置 Vuex
+- [x] 配置 Vuex
 - [x] 配置 Vscode 代码片段
 - [ ] 配置更新基础框架
 - [ ] 自动化部署
@@ -424,12 +424,118 @@ export const SetConfig = (params: any): Promise<any> => {
 };
 ```
 
+## 1. 配置 Vuex
+
+### 1.1 安装依赖
+
+```shell
+yarn add vuex --save
+```
+
+### 1.2 全局引入
+
+``` .main.ts```
+
+```typescript
+import store from "@/store";
+
+new Vue({
+  store,
+}).$mount("#app");
+```
+
+### 1.3 创建 store
+
+``` @/store/index.ts ```
+
+```typescript
+import Vue from "vue";
+import Vuex from "vuex";
+
+Vue.use(Vuex);
+
+// 引入 modules 文件夹下的所有 store
+const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
+const req = require.context("@/store/modules", true, /\.ts$/);
+const modules: any = {};
+requireAll(req).map((route: any) => (modules[route.default.key] = route.default));
+
+export default new Vuex.Store({
+  modules: {
+    ...modules,
+  },
+});
+```
+
+``` @/store/modules/common.ts ```
+
+```typescript
+export default {
+  key: "common",
+  namespaced: true,
+  state: {
+    version: "1.0.0",
+  },
+  mutations: {
+    CHANGE_STATE(state: any, context: any): void {
+      context.length
+        ? context.forEach((item: any) => (state[item.key] = item.value))
+        : (state[context.key] = context.value);
+    },
+  },
+  actions: {
+    changeState({ commit }: any, context: any): void {
+      commit("CHANGE_STATE", context);
+    },
+  },
+};
+```
+
+``` @/store/modules/user.ts ```
+
+```typescript
+export default {
+  key: "user",
+  namespaced: true,
+  state: {
+    name: "lee",
+    age: 100,
+    city: "ShangHai",
+  },
+  mutations: {
+    CHANGE_STATE(state: any, context: any): void {
+      context.length
+        ? context.forEach((item: any) => (state[item.key] = item.value))
+        : (state[context.key] = context.value);
+    },
+  },
+  actions: {
+    changeState({ commit }: any, context: any): void {
+      commit("CHANGE_STATE", context);
+    },
+  },
+};
+```
+
+### 1.4 使用方法
+
+```typescript
+// 获取方法
+this.$store.state.common.xxx;
+
+// 设置方法
+this.$store.dispatch("common/changeState", { key: "key", value: data });
+this.$store.dispatch("common/changeState", [ { key: "key", value: data } ]);
+this.$store.commit("common/CHANGE_STATE", { key: "key", value: data });
+this.$store.commit("common/CHANGE_STATE", [ { key: "key", value: data } ]);
+```
+
 ## 1. 配置 SVG
 
 ### 1.1 安装依赖
 
 ```shell
-cnpm install svg-sprite-loader --save-dev
+yarn add svg-sprite-loader --save-dev
 ```
 
 ### 1.2 添加配置
