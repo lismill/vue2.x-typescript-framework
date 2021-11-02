@@ -6,7 +6,7 @@
 - [x] 配置 ESLint 校验 和 自动格式化
 - [x] 配置项目相关信息
 - [x] 配置多环境
-- [x] 配置 vue.config.js
+- [x] 配置基础 vue.config.js
 - [x] 配置 CSS 样式系统
 - [x] 配置 SVG
 - [x] 配置 I18N 国际化
@@ -17,7 +17,7 @@
 - [x] 配置 Vuex
 - [x] 配置 CDN 引入静态资源
 - [x] 配置 Vscode 代码片段
-- [x] 配置更新基础框架
+- [x] 配置远程更新基础框架
 - [ ] 自动化部署
 
 ## 1. 组织项目目录结构
@@ -200,7 +200,7 @@ VUE_APP_ENV = 'development'
 
 ``` js
 # 测试环境
-NODE_ENV = 'production'
+NODE_ENV = 'development'
 VUE_APP_ENV = 'test'
 
 // others config
@@ -241,15 +241,15 @@ VUE_APP_ENV = 'production'
 <title env="<%= VUE_APP_ENV %>"><%= htmlWebpackPlugin.options.title %></title>
 ```
 
-## 5. 配置 vue.config.js
+## 5. 配置基础 vue.config.js
 [更多详细配置](https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E9%85%8D%E7%BD%AE)
-```
+```js
 module.exports = {
   // 部署应用包时的基本 URL
-  publicPath: './',
+  publicPath: "./",
   // 静态资源目录
-  assetsDir: 'assets',
-}
+  assetsDir: "assets",
+};
 ```
 
 ## 6. 配置 CSS 样式系统
@@ -847,7 +847,7 @@ yarn add vuex --save
 
 ### 13.2 全局引入
 
-``` .main.ts```
+``` ./main.ts```
 
 ```typescript
 import store from "@/store";
@@ -943,7 +943,7 @@ this.$store.commit("common/CHANGE_STATE", { key: "key", value: data });
 this.$store.commit("common/CHANGE_STATE", [ { key: "key", value: data } ]);
 ```
 
-## 14. 配置CDN引入静态资源
+## 14. 配置 CDN 引入静态资源
 
 ### 14.1 ./public/index.html
 
@@ -1269,7 +1269,7 @@ module.exports.CDN = {
 | store-get                  | 生成一个获取 store 的片段               | this.$store.state.xxx                                        |
 | store-set                  | 生成一个设置 store 的片段               | this.$store.dispatch("xxx/changeState", [{ key: "xxx", value: "xxx" }]); |
 
-## 16. 配置更新基础框架
+## 16. 配置远程更新基础框架
 
 ### 16.1 查看项目中已有远程仓库
 
