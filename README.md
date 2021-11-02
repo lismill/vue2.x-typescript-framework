@@ -15,6 +15,7 @@
 - [x] 配置 Axios
 - [x] 配置 Router
 - [x] 配置 Vuex
+- [x] 配置CDN引入静态资源
 - [x] 配置 Vscode 代码片段
 - [ ] 配置更新基础框架
 - [ ] 自动化部署
@@ -864,13 +865,97 @@ this.$store.commit("common/CHANGE_STATE", { key: "key", value: data });
 this.$store.commit("common/CHANGE_STATE", [ { key: "key", value: data } ]);
 ```
 
-## 14. 代码片段
+## 14. 配置CDN引入静态资源
 
-### 14.1 作用
+### 14.1 ./public/index.html
+
+```html
+<!-- import css cdn -->
+<% for (let i in htmlWebpackPlugin.options.cdn.css) { %>
+<link rel="stylesheet" href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" />
+<% } %>
+
+<!-- import javascript cdn -->
+<% for (let i in htmlWebpackPlugin.options.cdn.js) { %>
+<script type="text/javascript" src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+<% } %>
+```
+
+### 14.2 vue.config.js
+
+```javascript
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { CDN } = require("./src/utils/cdn");
+
+...
+
+configureWebpack: {
+  // 忽略打包第三方库
+  externals: {
+    vue: "Vue",
+    "vue-router": "VueRouter",
+    vuex: "Vuex",
+    axios: "axios",
+  },
+},
+pages: {
+  // 首页配置CDN
+  index: {
+    entry: "src/main.ts",
+    template: "public/index.html",
+    filename: "index.html",
+    chunks: ["chunk-vendors", "chunk-common", "index"],
+    cdn: CDN[process.env.VUE_APP_ENV],
+  },
+},
+```
+
+### 14.3 ./src/utils/cdn/index.js
+
+```
+module.exports.CDN = {
+  develop: {
+    js: [
+      "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js",
+    ],
+  },
+  test: {
+    js: [
+      "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js",
+    ],
+  },
+  uat: {
+    js: [
+      "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js",
+    ],
+  },
+  production: {
+    js: [
+      "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js",
+    ],
+  },
+};
+```
+
+## 15. 配置 Vscode 代码片段
+
+### 15.1 作用
 
 使用快捷键自动生成代码片段
 
-### 14.2 配置方法
+### 15.2 配置方法
 
 复制以下配置信息，粘贴到 ``` Vscode 首选项 => 用户片段 => 新建全局代码片段文件```
 
@@ -1076,7 +1161,7 @@ this.$store.commit("common/CHANGE_STATE", [ { key: "key", value: data } ]);
 }
 ```
 
-### 14.3 快捷键说明
+### 15.3 快捷键说明
 
 | 快捷键                     | 描述                                    | 生成代码                                                     |
 | -------------------------- | --------------------------------------- | ------------------------------------------------------------ |
@@ -1102,38 +1187,38 @@ this.$store.commit("common/CHANGE_STATE", [ { key: "key", value: data } ]);
 | store-get                  | 生成一个获取 store 的片段               | this.$store.state.xxx                                        |
 | store-set                  | 生成一个设置 store 的片段               | this.$store.dispatch("xxx/changeState", [{ key: "xxx", value: "xxx" }]); |
 
-## 15. 配置更新基础框架
+## 16. 配置更新基础框架
 
-### 15.1 查看项目中已有远程仓库
+### 16.1 查看项目中已有远程仓库
 
 ```shell
 git remote
 ```
 
-### 15.2 添加远程基础框架仓库
+### 16.2 添加远程基础框架仓库
 
 ```shell
 git remote add framework git-url
 ```
 
-### 15.3 查看基础框架信息
+### 16.3 查看基础框架信息
 
 ```shell
 git fetch framework
 ```
 
-### 15.4 获取或者初始化基础框架
+### 16.4 获取或者初始化基础框架
 
 ```shell
 # 获取v1.0.0分支的代码
 git merge framework/v1.0.0 --allow-unrelated-historie
 ```
 
-### 15.5 解决冲突
+### 16.5 解决冲突
 
 更新基础框架，如有冲突先解决冲突，然后提交并推送代码，项目中的基础框架更新完成
 
-## 16. 自动化部署
+## 17. 自动化部署
 
 ## Project setup
 
