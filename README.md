@@ -541,12 +541,10 @@ export default {
 ``` main.js ```
 
 ```js
-import VueI18n from "vue-i18n";
 import i18n from "@/utils/i18n";
 
 ...
 
-Vue.use(VueI18n);
 new Vue({
   router,
   store,
