@@ -242,7 +242,7 @@ VUE_APP_ENV = 'production'
 ```
 
 ## 5. 配置 vue.config.js
-
+[更多详细配置](https://cli.vuejs.org/zh/config/#%E5%85%A8%E5%B1%80-cli-%E9%85%8D%E7%BD%AE)
 ```
 module.exports = {
   // 部署应用包时的基本 URL
