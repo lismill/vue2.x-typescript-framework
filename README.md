@@ -1043,252 +1043,252 @@ module.exports.CDN = {
 
 ```js
 {
-	/**
+  /**
    * Console
    */
-	"console.log": {
-		"scope": "javascript, typescript",
-		"prefix": "cl",
-		"body": [
-			"console.log(\"$1\", $2)"
-		],
-		"description": "console.log()"
-	},
-	"console.dir": {
-		"scope": "javascript, typescript",
-		"prefix": "cd",
-		"body": [
-			"console.dir(\"$1\", $2)"
-		],
-		"description": "console.dir()"
-	},
-	"console.table": {
-		"scope": "javascript, typescript",
-		"prefix": "ct",
-		"body": [
-			"console.table(\"$1\", $2)"
-		],
-		"description": "console.table()"
-	},
-	/**
+  "console.log": {
+    "scope": "javascript, typescript",
+    "prefix": "cl",
+    "body": [
+      "console.log(\"$1\", $2)"
+    ],
+    "description": "console.log()"
+  },
+  "console.dir": {
+    "scope": "javascript, typescript",
+    "prefix": "cd",
+    "body": [
+      "console.dir(\"$1\", $2)"
+    ],
+    "description": "console.dir()"
+  },
+  "console.table": {
+    "scope": "javascript, typescript",
+    "prefix": "ct",
+    "body": [
+      "console.table(\"$1\", $2)"
+    ],
+    "description": "console.table()"
+  },
+  /**
    * Template
    */
-	"vue2.x typescript template": {
-		"scope": "",
-		"prefix": "vue2.x-typescript-template",
-		"body": [
-			"<template>",
-			"  <div class=\"${1}\">${2}</div>",
-			"</template>",
-			"",
-			"<script lang=\"ts\">",
-			"import { Component, Vue } from \"vue-property-decorator\";",
-			"",
-			"@Component({",
-			"  components: {},",
-			"})",
-			"export default class ${3} extends Vue {",
-			"  mounted(): void {${4}}",
-			"}",
-			"</script>",
-			"<style scoped lang=\"scss\">",
-			"</style>",
-			"",
-		],
-		"description": "vue2.x-typescript-template"
-	},
-	"vue3.x typescript template": {
-		"scope": "",
-		"prefix": "vue3.x-typescript-template",
-		"body": [
-			"<template>",
-			"  <div class=\"${1}\">${2}</div>",
-			"</template>",
-			"",
-			"<script lang=\"ts\">",
-			"import { defineComponent } from \"vue\"",
-			"",
-			"export default defineComponent({",
-			"  setup () {",
-			"    console.log(\")",
-			"  }",
-			"})",
-			"</script>",
-			"",
-		],
-		"description": "vue3.x-typescript-template"
-	},
-	/**
+  "vue2.x typescript template": {
+    "scope": "",
+    "prefix": "vue2.x-typescript-template",
+    "body": [
+      "<template>",
+      "  <div class=\"${1}\">${2}</div>",
+      "</template>",
+      "",
+      "<script lang=\"ts\">",
+      "import { Component, Vue } from \"vue-property-decorator\";",
+      "",
+      "@Component({",
+      "  components: {},",
+      "})",
+      "export default class ${3} extends Vue {",
+      "  mounted(): void {${4}}",
+      "}",
+      "</script>",
+      "<style scoped lang=\"scss\">",
+      "</style>",
+      "",
+    ],
+    "description": "vue2.x-typescript-template"
+  },
+  "vue3.x typescript template": {
+    "scope": "",
+    "prefix": "vue3.x-typescript-template",
+    "body": [
+      "<template>",
+      "  <div class=\"${1}\">${2}</div>",
+      "</template>",
+      "",
+      "<script lang=\"ts\">",
+      "import { defineComponent } from \"vue\"",
+      "",
+      "export default defineComponent({",
+      "  setup () {",
+      "    console.log(\")",
+      "  }",
+      "})",
+      "</script>",
+      "",
+    ],
+    "description": "vue3.x-typescript-template"
+  },
+  /**
    * Function
    */
-	"function": {
-		"scope": "",
-		"prefix": "function",
-		"body": [
-			"${1}(): void {${2}}"
-		],
-		"description": "function"
-	},
-	"promise": {
-		"scope": "javascript, typescript",
-		"prefix": "promise",
-		"body": [
-			"return new Promise((${2:resolve}, ${3:reject}) => {${1}})"
-		],
-		"description": "promise"
-	},
-	/**
+  "function": {
+    "scope": "",
+    "prefix": "function",
+    "body": [
+      "${1}(): void {${2}}"
+    ],
+    "description": "function"
+  },
+  "promise": {
+    "scope": "javascript, typescript",
+    "prefix": "promise",
+    "body": [
+      "return new Promise((${2:resolve}, ${3:reject}) => {${1}})"
+    ],
+    "description": "promise"
+  },
+  /**
    * API
    */
-	"api": {
-		"scope": "javascript, typescript",
-		"prefix": "api",
-		"body": [
-			"({}).then((res: any) => {",
-			"  console.log(res)",
-			"}).catch((error: any) => console.log(error)).finally(() => {})"
-		],
-		"description": "api"
-	},
-	"api-get": {
-		"scope": "javascript, typescript",
-		"prefix": "api-get",
-		"body": [
-			"export const ${1} = (params: any): Promise<any> => {",
-			"  return request.get(\"${2}\", { params });",
-			"};"
-		],
-		"description": "api-get"
-	},
-	"api-post": {
-		"scope": "javascript, typescript",
-		"prefix": "api-post",
-		"body": [
-			"export const ${1} = (params: any): Promise<any> => {",
-			"  return request.post(\"${2}\", params);",
-			"};"
-		],
-		"description": "api-post"
-	},
-	/**
+  "api": {
+    "scope": "javascript, typescript",
+    "prefix": "api",
+    "body": [
+      "({}).then((res: any) => {",
+      "  console.log(res)",
+      "}).catch((error: any) => console.log(error)).finally(() => {})"
+    ],
+    "description": "api"
+  },
+  "api-get": {
+    "scope": "javascript, typescript",
+    "prefix": "api-get",
+    "body": [
+      "export const ${1} = (params: any): Promise<any> => {",
+      "  return request.get(\"${2}\", { params });",
+      "};"
+    ],
+    "description": "api-get"
+  },
+  "api-post": {
+    "scope": "javascript, typescript",
+    "prefix": "api-post",
+    "body": [
+      "export const ${1} = (params: any): Promise<any> => {",
+      "  return request.post(\"${2}\", params);",
+      "};"
+    ],
+    "description": "api-post"
+  },
+  /**
    * Array
    */
-	"map": {
-		"scope": "javascript, typescript",
-		"prefix": "map",
-		"body": [
-			"${1}.map((item: ${2:any}) => {$3})"
-		],
-		"description": "map"
-	},
-	"foreach": {
-		"scope": "javascript, typescript",
-		"prefix": "foreach",
-		"body": [
-			"${1}.forEach((item: ${2:any}) => {${3}})",
-		],
-		"description": "foreach"
-	},
-	"find": {
-		"scope": "javascript, typescript",
-		"prefix": "find",
-		"body": [
-			"${1}.find((item: ${2:any}) => {$3})"
-		],
-		"description": "find"
-	},
-	"filter": {
-		"scope": "javascript, typescript",
-		"prefix": "filter",
-		"body": [
-			"${1}.filter((item: ${2:any}) => {$3})"
-		],
-		"description": "filter"
-	},
-	"every": {
-		"scope": "javascript, typescript",
-		"prefix": "every",
-		"body": [
-			"${1}.every((item: ${2:any}) => {$3})"
-		],
-		"description": "every"
-	},
-	"some": {
-		"scope": "javascript, typescript",
-		"prefix": "some",
-		"body": [
-			"${1}.some((item: ${2:any}) => {$3})"
-		],
-		"description": "some"
-	},
-	/**
+  "map": {
+    "scope": "javascript, typescript",
+    "prefix": "map",
+    "body": [
+      "${1}.map((item: ${2:any}) => {$3})"
+    ],
+    "description": "map"
+  },
+  "foreach": {
+    "scope": "javascript, typescript",
+    "prefix": "foreach",
+    "body": [
+      "${1}.forEach((item: ${2:any}) => {${3}})",
+    ],
+    "description": "foreach"
+  },
+  "find": {
+    "scope": "javascript, typescript",
+    "prefix": "find",
+    "body": [
+      "${1}.find((item: ${2:any}) => {$3})"
+    ],
+    "description": "find"
+  },
+  "filter": {
+    "scope": "javascript, typescript",
+    "prefix": "filter",
+    "body": [
+      "${1}.filter((item: ${2:any}) => {$3})"
+    ],
+    "description": "filter"
+  },
+  "every": {
+    "scope": "javascript, typescript",
+    "prefix": "every",
+    "body": [
+      "${1}.every((item: ${2:any}) => {$3})"
+    ],
+    "description": "every"
+  },
+  "some": {
+    "scope": "javascript, typescript",
+    "prefix": "some",
+    "body": [
+      "${1}.some((item: ${2:any}) => {$3})"
+    ],
+    "description": "some"
+  },
+  /**
    * Style
    */
-	"scss": {
-		"scope": "javascript, typescript, vue",
-		"prefix": "scss",
-		"body": [
-			"<style scoped lang=\"scss\">${1}</style>"
-		],
-		"description": "scss"
-	},
-	/**
+  "scss": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "scss",
+    "body": [
+      "<style scoped lang=\"scss\">${1}</style>"
+    ],
+    "description": "scss"
+  },
+  /**
    * Vue
    */
-	"router-get": {
-		"scope": "javascript, typescript, vue",
-		"prefix": "vue-router-get",
-		"body": [
-			"this.${1:$}route.${2}"
-		],
-		"description": "vue-router-get"
-	},
-	"router-params": {
-		"scope": "javascript, typescript, vue",
-		"prefix": "vue-router-get-params",
-		"body": [
-			"this.${1:$}route.params.${2:id}"
-		],
-		"description": "vue-router-get-params"
-	},
-	"router-push": {
-		"scope": "javascript, typescript, vue",
-		"prefix": "vue-router-push",
-		"body": [
-			"this.${1:$}router.push({ path: \"${2}\" });"
-		],
-		"description": "vue-router-push"
-	},
-	"store-get": {
-		"scope": "javascript, typescript, vue",
-		"prefix": "vuex-store-get",
-		"body": [
-			"this.${1:$}store.state.${2}"
-		],
-		"description": "vuex-store-get"
-	},
-	"store-set": {
-		"scope": "javascript, typescript, vue",
-		"prefix": "vuex-store-set",
-		"body": [
-			"this.${1:$}store.dispatch(\"${2}/changeState\", [{ key: \"${3}\", value: \"${4}\" }]);"
-		],
-		"description": "vuex-store-set"
-	},
-	"vue-click": {
-		"prefix": "vue-click",
-		"body": [
-			"@click=\"${1}\""
-		],
-		"description": "vue-click"
-	},
-	"vue-for": {
-		"prefix": "vue-for",
-		"body": [
-			"v-for=\"item in item\" :key=\"item\""
-		],
-		"description": "vue-for"
-	},
+  "router-get": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vue-router-get",
+    "body": [
+      "this.${1:$}route.${2}"
+    ],
+    "description": "vue-router-get"
+  },
+  "router-params": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vue-router-get-params",
+    "body": [
+      "this.${1:$}route.params.${2:id}"
+    ],
+    "description": "vue-router-get-params"
+  },
+  "router-push": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vue-router-push",
+    "body": [
+      "this.${1:$}router.push({ path: \"${2}\" });"
+    ],
+    "description": "vue-router-push"
+  },
+  "store-get": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vuex-store-get",
+    "body": [
+      "this.${1:$}store.state.${2}"
+    ],
+    "description": "vuex-store-get"
+  },
+  "store-set": {
+    "scope": "javascript, typescript, vue",
+    "prefix": "vuex-store-set",
+    "body": [
+      "this.${1:$}store.dispatch(\"${2}/changeState\", [{ key: \"${3}\", value: \"${4}\" }]);"
+    ],
+    "description": "vuex-store-set"
+  },
+  "vue-click": {
+    "prefix": "vue-click",
+    "body": [
+      "@click=\"${1}\""
+    ],
+    "description": "vue-click"
+  },
+  "vue-for": {
+    "prefix": "vue-for",
+    "body": [
+      "v-for=\"item in item\" :key=\"item\""
+    ],
+    "description": "vue-for"
+  },
 }
 ```
 
