@@ -1077,7 +1077,23 @@ module.exports.CDN = {
 		"scope": "",
 		"prefix": "vue2.x-typescript-template",
 		"body": [
-			"<template>\n\t<div class=\"${1}\"></div>\n</template>\n\n<script lang=\"ts\">\nimport { Component, Vue } from \"vue-property-decorator\";\n\n@Component({\n\tcomponents: {},\n})\nexport default class ${2} extends Vue {\n\tmounted(): void {}\n}\n</script>\n<style scoped lang=\"scss\">\n</style>\n"
+			"<template>",
+			"  <div class=\"${1}\">${2}</div>",
+			"</template>",
+			"",
+			"<script lang=\"ts\">",
+			"import { Component, Vue } from \"vue-property-decorator\";",
+			"",
+			"@Component({",
+			"  components: {},",
+			"})",
+			"export default class ${3} extends Vue {",
+			"  mounted(): void {${4}}",
+			"}",
+			"</script>",
+			"<style scoped lang=\"scss\">",
+			"</style>",
+			"",
 		],
 		"description": "vue2.x-typescript-template"
 	},
@@ -1085,7 +1101,20 @@ module.exports.CDN = {
 		"scope": "",
 		"prefix": "vue3.x-typescript-template",
 		"body": [
-			"<template>\n\t<div class=\"${1}\">\n\t\t$2\n\t</div>\n</template>\n\n<script lang=\"ts\">\nimport { defineComponent } from \"vue\"\n\nexport default defineComponent({\n\tsetup () {\n\t\tconsole.log(\"$3\")\n\t}\n})\n</script>\n"
+			"<template>",
+			"  <div class=\"${1}\">${2}</div>",
+			"</template>",
+			"",
+			"<script lang=\"ts\">",
+			"import { defineComponent } from \"vue\"",
+			"",
+			"export default defineComponent({",
+			"  setup () {",
+			"    console.log(\")",
+			"  }",
+			"})",
+			"</script>",
+			"",
 		],
 		"description": "vue3.x-typescript-template"
 	},
@@ -1115,7 +1144,9 @@ module.exports.CDN = {
 		"scope": "javascript, typescript",
 		"prefix": "api",
 		"body": [
-			"${1}({$2}).then((res: any) => {\n\tconsole.log(res)\n}).catch((error: any) => console.log(error)).finally(() => {$3})"
+			"({}).then((res: any) => {",
+			"  console.log(res)",
+			"}).catch((error: any) => console.log(error)).finally(() => {})"
 		],
 		"description": "api"
 	},
@@ -1123,7 +1154,9 @@ module.exports.CDN = {
 		"scope": "javascript, typescript",
 		"prefix": "api-get",
 		"body": [
-			"export const ${1} = (params: any): Promise<any> => {\n\treturn request.get(\"${2}\", { params });\n};"
+			"export const ${1} = (params: any): Promise<any> => {",
+			"  return request.get(\"${2}\", { params });",
+			"};"
 		],
 		"description": "api-get"
 	},
@@ -1131,7 +1164,9 @@ module.exports.CDN = {
 		"scope": "javascript, typescript",
 		"prefix": "api-post",
 		"body": [
-			"export const ${1} = (params: any): Promise<any> => {\n\treturn request.post(\"${2}\", params);\n};"
+			"export const ${1} = (params: any): Promise<any> => {",
+			"  return request.post(\"${2}\", params);",
+			"};"
 		],
 		"description": "api-post"
 	},
