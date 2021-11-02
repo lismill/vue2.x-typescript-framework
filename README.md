@@ -557,6 +557,7 @@ new Vue({
 
 ```js
 $t('message.hello')
+this.$t('message.hello')
 ```
 
 ### 8.5 切换语言
