@@ -40,6 +40,11 @@
         <div @click="changeUser">改变用户信息</div>
       </div>
     </fieldset>
+    <!-- i18n -->
+    <fieldset class="m-b20">
+      <legend>i18n</legend>
+      {{ $t("message.hello") }}
+    </fieldset>
   </div>
 </template>
 
@@ -54,7 +59,7 @@ import { GetConfig, SetConfig } from "@/api/home/index";
 export default class Home extends Vue {
   private name: any = "Lean";
   mounted(): void {
-    console.log(123);
+    console.log(this);
     console.log(process.env);
     GetConfig({ id: 1 })
       .then((res: any) => {

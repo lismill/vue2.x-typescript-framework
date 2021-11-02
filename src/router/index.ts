@@ -5,7 +5,7 @@ Vue.use(VueRouter);
 
 // 引入 modules 文件夹下的所有路由
 const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
-const req = require.context("@/router/modules", true, /\.ts$/);
+const req = require.context("./modules", true, /\.ts$/);
 const modules: any = requireAll(req).map((route: any) => route.default);
 const routes: Array<RouteConfig> = [
   // 首页

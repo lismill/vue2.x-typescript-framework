@@ -29,6 +29,7 @@ module.exports = {
       "vue-router": "VueRouter",
       vuex: "Vuex",
       axios: "axios",
+      "vue-i18n": "VueI18n",
     },
   },
   pages: {

@@ -9,7 +9,7 @@
 - [x] 配置 vue.config.js
 - [x] 配置 CSS 样式系统
 - [x] 配置 SVG
-- [ ] 配置 I18N 国际化
+- [x] 配置 I18N 国际化
 - [ ] 配置多主题切换
 - [ ] 配置基础框架结构
 - [x] 配置 Axios
@@ -33,12 +33,6 @@
 │  ├── ├── ├── index.scss                              # 入口文件
 │  ├── ├── svg                                         # svg 文件
 │  ├── components                                      # 全局公共组件
-│  ├── language                                        # i18n 多语言
-│  ├── ├── ├── en.ts                                   # 英文配置
-│  ├── ├── ├── i18n.ts                                 # 注册多 i18n 语言实例
-│  ├── ├── ├── index.ts                                # 入口文件
-│  ├── ├── ├── ja.ts                                   # 日文配置
-│  ├── ├── ├── zh-CN.ts                                # 中文配置
 │  ├── router                                          # 路由
 │  ├── ├── index.ts                                    # 路由入口文件
 │  ├── ├── modules                                     # 路由模块
@@ -47,6 +41,11 @@
 │  ├── ├── modules                                     # vuex 模块
 │  ├── utils                                           # 工具类
 │  ├── ├── axios                                       # axios 请求封装
+│  ├── ├── cdn                                         # cdn 静态资源
+│  ├── ├── i18n                                        # i18n 多语言
+│  ├── ├── ├── index.ts                                # i18n 入口文件
+│  ├── ├── ├── ├── modules ├── zh.ts                    # i18n 中文配置
+│  ├── ├── ├── ├── modules ├── en.ts                    # i18n 英文配置
 │  ├── ├── common                                      # 全局公共方法
 │  ├── views                                           # 所有视图
 │  ├── App.vue                                         # 入口页面
@@ -489,6 +488,86 @@ import "@/components/index";
 ```
 
 ## 8. 配置 I18N 国际化
+
+### 8.1 安装依赖
+
+```shell
+yarn add vue-i18n --save
+```
+
+### 8.2 添加翻译文件
+
+``` @/utils/i18n/index.ts ```
+
+```js
+import VueI18n from "vue-i18n";
+
+// 引入 modules 文件夹下的所有 store
+const requireAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().map(requireContext);
+const req = require.context("./modules", true, /\.ts$/);
+const modules: any = {};
+requireAll(req).map((route: any) => (modules[route.default.key] = route.default));
+
+export default new VueI18n({
+  locale: localStorage.getItem("locale") || "zh",
+  messages: modules,
+});
+```
+
+``` @/utils/i18n/modules/zh.ts ```
+
+```js
+export default {
+  key: "zh",
+  message: {
+    hello: "你好，世界",
+  },
+};
+```
+
+``` @/utils/i18n/modules/en.ts ```
+
+``` js
+export default {
+  key: "en",
+  message: {
+    hello: "Hello, world",
+  },
+};
+```
+
+### 8.3 全局引入
+
+``` main.js ```
+
+```js
+import VueI18n from "vue-i18n";
+import i18n from "@/utils/i18n";
+
+...
+
+Vue.use(VueI18n);
+new Vue({
+  router,
+  store,
+  i18n,
+  render: (h) => h(App),
+}).$mount("#app");
+```
+
+### 8.4 使用方法
+
+```js
+$t('message.hello')
+```
+
+### 8.5 切换语言
+
+```js
+localStorage.setItem("locale", "");
+this.$i18n.locale = localStorage.getItem("locale");
+```
+
 ## 9. 配置多主题切换
 ## 10. 配置基础框架结构
 
@@ -912,38 +991,42 @@ pages: {
 
 ### 14.3 ./src/utils/cdn/index.js
 
-```
+```js
 module.exports.CDN = {
   develop: {
     js: [
-      "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
-      "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
-      "https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js",
-      "https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js",
+      "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.4.0/dist/vuex.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.js",
+      "https://cdn.jsdelivr.net/npm/vue-i18n@8.26.5/dist/vue-i18n.js",
     ],
   },
   test: {
     js: [
-      "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
-      "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
-      "https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js",
-      "https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js",
+      "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.4.0/dist/vuex.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.js",
+      "https://cdn.jsdelivr.net/npm/vue-i18n@8.26.5/dist/vue-i18n.js",
     ],
   },
   uat: {
     js: [
       "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
-      "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
-      "https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js",
-      "https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.min.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.4.0/dist/vuex.min.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-i18n@8.26.5/dist/vue-i18n.min.js",
     ],
   },
   production: {
     js: [
       "https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js",
-      "https://cdn.jsdelivr.net/npm/vue-router@3.0.3/dist/vue-router.min.js",
-      "https://cdn.jsdelivr.net/npm/vuex@3.1.2/dist/vuex.min.js",
-      "https://cdn.jsdelivr.net/npm/axios@0.19.2/dist/axios.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-router@3.2.0/dist/vue-router.min.js",
+      "https://cdn.jsdelivr.net/npm/vuex@3.4.0/dist/vuex.min.js",
+      "https://cdn.jsdelivr.net/npm/axios@0.24.0/dist/axios.min.js",
+      "https://cdn.jsdelivr.net/npm/vue-i18n@8.26.5/dist/vue-i18n.min.js",
     ],
   },
 };
