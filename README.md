@@ -7,6 +7,7 @@
 - [x] 配置项目相关信息
 - [x] 配置多环境
 - [x] 配置基础 vue.config.js
+- [ ] 配置注释规范
 - [x] 配置 CSS 样式系统
 - [x] 配置 SVG
 - [x] 配置 I18N 国际化
@@ -79,9 +80,11 @@ module.exports = {
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     // 允许使用 any 类型
-    '@typescript-eslint/no-explicit-any': 'off',
+    "@typescript-eslint/no-explicit-any": "off",
+    // 显式的表明函数返回值
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     // 函数定义时括号前面要不要有空格
-    'space-before-function-paren': 0,
+    "space-before-function-paren": 0,
   },
 };
 ```
