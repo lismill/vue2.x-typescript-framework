@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+
 Vue.use(VueRouter);
 
 // 引入 modules 文件夹下的所有路由
@@ -50,10 +53,15 @@ const router = new VueRouter({
   routes,
 });
 
-// 修改项目标题
 router.beforeEach((to: any, from: any, next: any) => {
+  NProgress.start();
+  // 修改项目标题
   document.title = `管理后台${to.meta.title ? " - " + to.meta.title : ""}`;
   next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
 });
 
 export default router;

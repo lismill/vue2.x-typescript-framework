@@ -18,6 +18,7 @@
 - [x] 配置 Vuex
 - [x] 配置 CDN 引入静态资源
 - [x] 配置 Vscode 代码片段
+- [x] 页面加载进度条
 - [x] 配置远程更新基础框架
 - [ ] 自动化部署
 
@@ -1323,38 +1324,71 @@ module.exports.CDN = {
 | vue-click                  | 生成一个 vue click 指令                 | @click="xxx"                                                 |
 | vue-for                    | 生成一个 vue for 指令                   | v-for="item in item" :key="item"                             |
 
-## 16. 配置远程更新基础框架
+## 16. 页面加载进度条
 
-### 16.1 查看项目中已有远程仓库
+### 16.1 安装
+```
+yarn add --save nprogress
+```
+
+### 16.2 使用
+`@/router/index.ts`
+```
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+
+router.beforeEach((to: any, from: any, next: any) => {
+  NProgress.start();
+  next();
+});
+
+router.afterEach(() => {
+  NProgress.done();
+});
+```
+
+### 16.3 样式
+```
+#nprogress .bar {
+  // 自定义颜色
+  background: #66B1FF !important;
+  // 自定义高度
+  height: 20px !important;
+}
+```
+
+## 17. 配置远程更新基础框架
+
+### 17.1 查看项目中已有远程仓库
 
 ```shell
 git remote
 ```
 
-### 16.2 添加远程基础框架仓库
+### 17.2 添加远程基础框架仓库
 
 ```shell
 git remote add framework git-url
 ```
 
-### 16.3 查看基础框架信息
+### 17.3 查看基础框架信息
 
 ```shell
 git fetch framework
 ```
 
-### 16.4 获取或者初始化基础框架
+### 17.4 获取或者初始化基础框架
 
 ```shell
 # 获取v1.0.0分支的代码
 git merge framework/v1.0.0 --allow-unrelated-historie
 ```
 
-### 16.5 解决冲突
+### 17.5 解决冲突
 
 更新基础框架，如有冲突先解决冲突，然后提交并推送代码，项目中的基础框架更新完成
 
-## 17. 自动化部署
+## 18. 自动化部署
 
 ## Project setup
 
