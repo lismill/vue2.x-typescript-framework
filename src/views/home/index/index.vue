@@ -32,6 +32,7 @@
         <div>2</div>
       </div>
     </fieldset>
+
     <!-- Vuex -->
     <fieldset class="m-b20 p-10">
       <legend>Vuex</legend>
@@ -40,11 +41,24 @@
         <div @click="changeUser">改变用户信息</div>
       </div>
     </fieldset>
+
     <!-- i18n -->
     <fieldset class="m-b20 p-10">
       <legend>i18n</legend>
       {{ $t("message.hello") }}
       <div @click="changeLang">改变语言</div>
+    </fieldset>
+
+    <!-- vue-count-to -->
+    <fieldset class="m-b20 p-10">
+      <legend>vue-count-to</legend>
+      <countTo :startVal="0" :endVal="1000" :duration="1000"></countTo>
+    </fieldset>
+
+    <!-- clipboard -->
+    <fieldset class="m-b20 p-10">
+      <legend>clipboard</legend>
+      <div v-clipboard="'asdasdasdasd'">点击复制</div>
     </fieldset>
   </div>
 </template>
@@ -54,11 +68,16 @@ import { Component, Vue } from "vue-property-decorator";
 
 import { GetConfig, SetConfig } from "@/api/home/index";
 
+import countTo from "vue-count-to";
+
 @Component({
-  components: {},
+  components: {
+    countTo,
+  },
 })
 export default class Home extends Vue {
   private name: any = "Lean";
+
   mounted(): void {
     console.log(this);
     console.log(process.env);

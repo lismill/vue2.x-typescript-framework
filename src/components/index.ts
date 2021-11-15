@@ -1,5 +1,6 @@
 import Vue from "vue";
 import SvgIcon from "@/components/svg-icon/index.vue";
+import countTo from "@/components/count-to/index.vue";
 
 /**
  * 引入 @/assets/svg 下的所有 svg 文件
@@ -10,3 +11,4 @@ requireAll(req);
 
 // 注册全局组件
 Vue.component("svg-icon", SvgIcon);
+Vue.component("count-to", countTo);

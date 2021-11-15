@@ -1,14 +1,16 @@
 import Vue from "vue";
 import App from "@/app.vue";
-import "@/registerServiceWorker";
 import router from "@/router";
 import store from "@/store";
 import i18n from "@/utils/i18n";
+import prototype from "@/utils/prototype";
+import directives from "@/utils/directives";
+import "@/registerServiceWorker";
 import "@/components/index";
 import "@/assets/styles/index.scss";
-import prototype from "@/utils/prototype";
 
 Vue.config.productionTip = false;
+Vue.use(directives);
 
 /**
  * 添加实例 property

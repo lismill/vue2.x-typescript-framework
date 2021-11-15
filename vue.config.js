@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { CDN } = require("./src/utils/cdn");
+const { CDN } = require("./src/utils/cdn/index.ts");
 
 module.exports = {
   // 部署应用包时的基本 URL

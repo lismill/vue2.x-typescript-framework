@@ -32,6 +32,8 @@
 | vue-i18n          | 国际化语言    |
 | svg-sprite-loader | 处理 svg 图片 |
 | js-cookie         | 操作 cookie   |
+| vue-count-to      | 数字滚动      |
+| clipboard         | 复制到剪贴板  |
 
 
 
